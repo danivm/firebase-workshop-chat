@@ -5,22 +5,22 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import Divider from '@material-ui/core/Divider'
+import './index.scss'
+
+const CLASS = 'messageList'
 
 class messageList extends Component {
   getDate (time) {
     const date = new Date(time)
-    const d = date.getDate()
-    const m = date.getMonth()
-    const y = date.getFullYear()
     const mm = date.getMinutes()
     const hh = date.getHours()
     const ss = date.getSeconds()
-    return d + '/' + m + '/' + y + ' - ' + hh + ':' + mm + ':' + ss
+    return hh + ':' + mm + ':' + ss
   }
   render () {
     const { messages } = this.props
     return (
-      <div>
+      <div className={CLASS}>
         <List>
           {
             messages.map(message => (
@@ -29,10 +29,13 @@ class messageList extends Component {
                   <Avatar>
                     <AccountCircle />
                   </Avatar>
-                  <ListItemText
-                    primary={message.text}
-                    secondary={this.getDate(message.time)}
-                  />
+                  <ListItemText>
+                    <div className={`${CLASS}-header`}>
+                      <span className={`${CLASS}-user`}>{message.user || 'User'}</span>
+                      <span className={`${CLASS}-date`}>{this.getDate(message.time)}</span>
+                    </div>
+                    <span className={`${CLASS}-message`}>{message.text}</span>
+                  </ListItemText>
                 </ListItem>
                 <li>
                   <Divider inset />
