@@ -3,7 +3,7 @@
 ## Stack
 - [React](https://reactjs.org/)
 - [Firebase](https://firebase.google.com)
-- [Mateial UI](https://material-ui.com/style/color/)
+- [Material UI](https://material-ui.com/style/color/)
 - [Parcel](https://parceljs.org/)
 
 ## Install
