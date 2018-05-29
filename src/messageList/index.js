@@ -12,9 +12,9 @@ const CLASS = 'messageList'
 class messageList extends Component {
   getDate (time) {
     const date = new Date(time)
-    const mm = date.getMinutes()
-    const hh = date.getHours()
-    const ss = date.getSeconds()
+    const mm = ('0' + date.getMinutes()).substr(-2)
+    const hh = ('0' + date.getHours()).substr(-2)
+    const ss = ('0' + date.getSeconds()).substr(-2)
     return hh + ':' + mm + ':' + ss
   }
   render () {
