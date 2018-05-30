@@ -8,6 +8,9 @@ import Button from '@material-ui/core/Button'
 import materialApp from './materialApp'
 import InputBar from './inputBar'
 import MessageList from './messageList'
+import db from './firebase'
+
+const dbMessages = db.collection('tasks')
 
 const styles = {
   root: {
@@ -24,12 +27,27 @@ class App extends Component {
     messages: []
   }
 
+  componentDidMount () {
+    this.getMessages()
+  }
+
+  getMessages = () => {
+    dbMessages.onSnapshot(snapshot => {
+      const messages = []
+      snapshot.forEach(message => {
+        messages.push(message.data())
+      })
+      this.setState({ messages })
+    })
+  }
+
   addMessage = (text) => {
-    const { messages } = this.state
-    const time = Date.now()
-    const message = { text, time }
-    messages.push(message)
-    this.setState({ messages })
+    if (text) {
+      const time = Date.now()
+      const message = { text, time }
+      const id = time.toString()
+      dbMessages.doc(id).set(message)
+    }
   }
 
   render () {

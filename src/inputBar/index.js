@@ -13,7 +13,7 @@ class InputBar extends Component {
 
   handleAddTasks = e => {
     const { message } = this.state
-    if (e.key === 'Enter' && message !== '') {
+    if (e.key === 'Enter') {
       this.props.addMessage(message)
       this.setState({ message: '' })
     }
