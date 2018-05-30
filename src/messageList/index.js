@@ -28,6 +28,11 @@ class messageList extends Component {
     this.scrollBottom = scrollBottom
   }
 
+  getName (message) {
+    const { user } = message
+    return user ? user.name : 'User'
+  }
+
   render () {
     const { messages } = this.props
 
@@ -38,12 +43,16 @@ class messageList extends Component {
             messages.map(message => (
               <Fragment key={message.time}>
                 <ListItem>
-                  <Avatar>
-                    <AccountCircle />
-                  </Avatar>
+                  {
+                    message.user
+                      ? <Avatar src={message.user.avatar} />
+                      : <Avatar>
+                        <AccountCircle />
+                      </Avatar>
+                  }
                   <ListItemText>
                     <div className={`${CLASS}-header`}>
-                      <span className={`${CLASS}-user`}>{message.user || 'User'}</span>
+                      <span className={`${CLASS}-user`}>{this.getName(message)}</span>
                       <span className={`${CLASS}-date`}>{this.getDate(message.time)}</span>
                     </div>
                     <span className={`${CLASS}-message`}>{message.text}</span>

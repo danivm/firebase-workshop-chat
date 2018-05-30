@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button'
 import materialApp from './materialApp'
 import InputBar from './inputBar'
 import MessageList from './messageList'
-import db from './firebase'
+import { db, auth, provider } from './firebase'
 
 const dbMessages = db.collection('tasks')
 
@@ -43,15 +43,28 @@ class App extends Component {
 
   addMessage = (text) => {
     if (text) {
+      const { user } = this.state
       const time = Date.now()
-      const message = { text, time }
+      const message = { text, time, user }
       const id = time.toString()
       dbMessages.doc(id).set(message)
     }
   }
 
+  handleLogin = () => {
+    auth.signInWithPopup(provider).then(result => {
+      const { displayName: name, photoURL: avatar } = result.user
+      const user = { name, avatar }
+      this.setState({ user })
+    })
+  }
+
+  handleLogout = () => {
+    auth.signOut().then(() => this.setState({ user: null }))
+  }
+
   render () {
-    const { messages } = this.state
+    const { messages, user } = this.state
     const { classes } = this.props
     return (
       <div className='appContainer'>
@@ -60,11 +73,18 @@ class App extends Component {
             <Typography variant="title" color="inherit" className={classes.flex}>
               Firebase Chat
             </Typography>
-            <Button color="inherit">Login</Button>
+            {
+              user
+                ? <Button color="inherit" onClick={this.handleLogout}>Logut</Button>
+                : <Button color="inherit" onClick={this.handleLogin}>Login</Button>
+            }
           </Toolbar>
         </AppBar>
         <MessageList messages={messages}/>
-        <InputBar addMessage={this.addMessage}/>
+        {
+          user &&
+          <InputBar addMessage={this.addMessage}/>
+        }
       </div>
     )
   }
