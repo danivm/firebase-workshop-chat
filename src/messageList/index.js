@@ -5,6 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import Divider from '@material-ui/core/Divider'
+import StayScrolled from 'react-stay-scrolled'
 import './index.scss'
 
 const CLASS = 'messageList'
@@ -17,10 +18,21 @@ class messageList extends Component {
     const ss = ('0' + date.getSeconds()).substr(-2)
     return hh + ':' + mm + ':' + ss
   }
+
+  componentDidUpdate (prevProps) {
+    this.stayScrolled()
+  }
+
+  storeScrolledControllers = ({ stayScrolled, scrollBottom }) => {
+    this.stayScrolled = stayScrolled
+    this.scrollBottom = scrollBottom
+  }
+
   render () {
     const { messages } = this.props
+
     return (
-      <div className={CLASS}>
+      <StayScrolled className={CLASS} provideControllers={this.storeScrolledControllers}>
         <List>
           {
             messages.map(message => (
@@ -44,7 +56,7 @@ class messageList extends Component {
             ))
           }
         </List>
-      </div>
+      </StayScrolled>
     )
   }
 }

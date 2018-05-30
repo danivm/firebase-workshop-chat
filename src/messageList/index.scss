@@ -1,6 +1,7 @@
 .messageList {
-  padding-bottom: 85px;
-  
+  flex-basis: 100%;
+  overflow-y: auto;
+
   &-user {
     font-weight: 500;
   }

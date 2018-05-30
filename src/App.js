@@ -36,7 +36,7 @@ class App extends Component {
     const { messages } = this.state
     const { classes } = this.props
     return (
-      <div className={classes.root}>
+      <div className='appContainer'>
         <AppBar position="static">
           <Toolbar>
             <Typography variant="title" color="inherit" className={classes.flex}>
