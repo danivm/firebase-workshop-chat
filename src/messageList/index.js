@@ -28,33 +28,47 @@ class messageList extends Component {
     this.scrollBottom = scrollBottom
   }
 
+  getName (message) {
+    const { user } = message
+    return user ? user.name : 'User'
+  }
+
   render () {
     const { messages } = this.props
 
     return (
-      <StayScrolled className={CLASS} provideControllers={this.storeScrolledControllers}>
+      <StayScrolled
+        className={CLASS}
+        provideControllers={this.storeScrolledControllers}
+      >
         <List>
-          {
-            messages.map(message => (
-              <Fragment key={message.time}>
-                <ListItem>
+          {messages.map(message => (
+            <Fragment key={message.time}>
+              <ListItem>
+                {message.user ? (
+                  <Avatar src={message.user.avatar} />
+                ) : (
                   <Avatar>
                     <AccountCircle />
                   </Avatar>
-                  <ListItemText>
-                    <div className={`${CLASS}-header`}>
-                      <span className={`${CLASS}-user`}>{message.user || 'User'}</span>
-                      <span className={`${CLASS}-date`}>{this.getDate(message.time)}</span>
-                    </div>
-                    <span className={`${CLASS}-message`}>{message.text}</span>
-                  </ListItemText>
-                </ListItem>
-                <li>
-                  <Divider inset />
-                </li>
-              </Fragment>
-            ))
-          }
+                )}
+                <ListItemText>
+                  <div className={`${CLASS}-header`}>
+                    <span className={`${CLASS}-user`}>
+                      {this.getName(message)}
+                    </span>
+                    <span className={`${CLASS}-date`}>
+                      {this.getDate(message.time)}
+                    </span>
+                  </div>
+                  <span className={`${CLASS}-message`}>{message.text}</span>
+                </ListItemText>
+              </ListItem>
+              <li>
+                <Divider inset />
+              </li>
+            </Fragment>
+          ))}
         </List>
       </StayScrolled>
     )
