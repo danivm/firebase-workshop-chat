@@ -12,5 +12,5 @@
 $ git clone https://github.com/danivm/firebase-workshop-chat.git
 $ cd workshop-firebase
 $ npm i
-$ npm run dev
+$ npm start
 ```
