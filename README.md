@@ -9,7 +9,7 @@
 ## Install
 
 ```
-$ git clone https://github.com/danivm/workshop-firebase.git
+$ git clone https://github.com/danivm/firebase-workshop-chat.git
 $ cd workshop-firebase
 $ npm i
 $ npm run dev
