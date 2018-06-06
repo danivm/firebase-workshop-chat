@@ -10,7 +10,7 @@
 
 ```
 $ git clone https://github.com/danivm/firebase-workshop-chat.git
-$ cd workshop-firebase
+$ cd firebase-workshop-chat
 $ npm i
 $ npm start
 ```
