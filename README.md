@@ -1,4 +1,5 @@
 # Workshop Firebase
+[Meetup](https://www.meetup.com/es-ES/js-coders/events/250870365/)
 
 ## Stack
 - [React](https://reactjs.org/)
